@@ -39,6 +39,7 @@ compile_commands.json
 *.exe
 *.app
 *.dSYM/
+*.xml
 
 Thumbs.db
 desktop.ini
