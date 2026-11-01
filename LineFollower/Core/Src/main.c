@@ -106,14 +106,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	if (HAL_GPIO_ReadPin(BTN_GPIO_Port, BTN_Pin) == GPIO_PIN_RESET)
+
+
+	if (HAL_GPIO_ReadPin(SncrLeft_GPIO_Port, SncrLeft_Pin) == GPIO_PIN_RESET)
 	{
-	  HAL_GPIO_WritePin(greenLed_GPIO_Port, greenLed_Pin, GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(MtrLeft_GPIO_Port, MtrLeft_Pin, GPIO_PIN_SET);
+	}
+	if (HAL_GPIO_ReadPin(SncrRight_GPIO_Port, SncrRight_Pin) == GPIO_PIN_RESET)
+	{
+	  HAL_GPIO_WritePin(MtrRight_GPIO_Port, MtrRight_Pin, GPIO_PIN_SET);
 	}
 	else
 	{
-	  HAL_GPIO_WritePin(greenLed_GPIO_Port, greenLed_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(MtrLeft_GPIO_Port, MtrLeft_Pin, GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(MtrRight_GPIO_Port, MtrRight_Pin, GPIO_PIN_RESET);
 	}
+
   }
   /* USER CODE END 3 */
 }
@@ -186,13 +194,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(greenLed_GPIO_Port, greenLed_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : BTN_Pin */
-  GPIO_InitStruct.Pin = BTN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(BTN_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOB, MtrLeft_Pin|MtrRight_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : USART_TX_Pin USART_RX_Pin */
   GPIO_InitStruct.Pin = USART_TX_Pin|USART_RX_Pin;
@@ -202,12 +204,18 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : greenLed_Pin */
-  GPIO_InitStruct.Pin = greenLed_Pin;
+  /*Configure GPIO pins : SncrRight_Pin SncrLeft_Pin */
+  GPIO_InitStruct.Pin = SncrRight_Pin|SncrLeft_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : MtrLeft_Pin MtrRight_Pin */
+  GPIO_InitStruct.Pin = MtrLeft_Pin|MtrRight_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(greenLed_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
