@@ -107,6 +107,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+	  //test comment
 
 	if (HAL_GPIO_ReadPin(SncrLeft_GPIO_Port, SncrLeft_Pin) == GPIO_PIN_RESET)
 	{
